@@ -1,6 +1,5 @@
 package tevesmovieapp;
 
-
 import java.util.Scanner;
 
 public class movies {
@@ -26,16 +25,22 @@ public class movies {
               movies mapp = new movies();
              switch(choices){
                  case 1:
+                      mapp.viewmovie();
                      mapp.addmovie();
                      break;
                  case 2:
                      mapp.viewmovie();
                      break;
                  case 3:
-                     mapp.editmovie();
+                      mapp.viewmovie();
+                     mapp.Updatemovie();
+                     mapp.viewmovie();
                      break;
+                     
                  case 4:
-                     mapp.deletemovie();
+                      mapp.viewmovie();
+                      mapp.deletemovie();
+                       mapp.viewmovie();
                      break;
                   case 5:
                        TEVESmovieapp map = new TEVESmovieapp();
@@ -47,6 +52,8 @@ public class movies {
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes"));
       }
+      
+      //add
       public void addmovie(){
         
         System.out.print("Movie name: ");
@@ -61,6 +68,7 @@ public class movies {
         String sql = "INSERT INTO tbl_movie (m_name, m_price, m_category, m_seats) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, price, category, seats);
     }
+      // view
       
      public void viewmovie() {
         String sqlQuery = "SELECT * FROM tbl_movie";
@@ -70,66 +78,36 @@ public class movies {
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
      
-    public void deletemovie() {
-        System.out.print("Enter movie ID to delete: ");
+        // update 
+    public void Updatemovie(){
+      
+        System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
-
-        String sql = "DELETE FROM tbl_movie WHERE m_id = ?";
-        conf.deleteRecord(sql, id);
-    }
-    
-    public void editmovie() {
-    System.out.print("Enter movie ID to edit: ");
-    int id = sc.nextInt();
-    sc.nextLine(); 
-    System.out.print("New movie name: ");
-    String name = sc.nextLine();
-    System.out.print("New price: ");
-    int price = sc.nextInt();
-    sc.nextLine();  
-    System.out.print("New category: ");
-    String category = sc.nextLine();
-    System.out.print("seats available: ");
-    int seats = sc.nextInt();
+        sc.nextLine();
+         
+        System.out.print("New movie name: ");
+        String name = sc.nextLine();
+        System.out.print("New price: ");
+        int price = sc.nextInt();
+       
+        System.out.print("New category: ");
+        String category = sc.next();
+        System.out.print("seats available: ");
+        int seats = sc.nextInt();
     
     String sql = "UPDATE tbl_movie SET m_name = ?, m_price = ?, m_category = ?, m_seats = ? WHERE m_id = ?";
-
-    conf.editRecord(sql, name, price, category, seats, id);
-    }   
+    config conf = new config();
+    conf.updateRecord(sql, name, price, category, seats, id);
+    }
     
-    public void buytickets() {
-        String buymore;
-        do{
-            System.out.print("Enter movie ID to buy tickets for: ");
-        int movieId = sc.nextInt();
-        System.out.print("Number of tickets to buy: ");
-        int numTickets = sc.nextInt();
-
-        String checkSeatsSql = "SELECT m_seats FROM tbl_movie WHERE m_id = ?";
-        String updateSeatsSql = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
-
-        try {
-            
-            int availableSeats = conf.checkAvailableSeats(checkSeatsSql, movieId);
-            if (availableSeats >= numTickets) {
-                int remainingSeats = availableSeats - numTickets;
-
-                
-                conf.editRecord(updateSeatsSql, remainingSeats, movieId);
-
-                System.out.println("Tickets purchased successfully!");
-                System.out.println("Remaining seats: " + remainingSeats);
-            } else {
-                System.out.println("Not enough seats available.");
-            }
-        } catch (Exception e) {
-            System.out.println("Error buying tickets: " + e.getMessage());
-        }
-            
-            System.out.println("buy more tickets (yes/no): ");
-            buymore = sc.next();
-        }while(buymore.equalsIgnoreCase("yes"));
-    
+    public void deletemovie(){
+          System.out.print("Enter movie ID to delete: ");
+        int id = sc.nextInt();
         
+        String sql = "DELETE FROM tbl_movie WHERE m_id = ?";
+        config conf = new config();
+        conf.deleteRecord(sql, id);
     }
 }
+  
+

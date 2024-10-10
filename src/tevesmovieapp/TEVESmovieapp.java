@@ -16,7 +16,7 @@ config conf = new config();
             case 1:
                  movies mapp = new movies();
                  mapp.viewmovie();
-                 mapp.buytickets();
+               
             break;
             case 2:
                 System.out.print("Enter password: ");
