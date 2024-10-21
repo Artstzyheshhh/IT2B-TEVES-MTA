@@ -1,7 +1,5 @@
 package tevesmovieapp;
-
 import java.util.Scanner;
-
 public class movies {
         config conf = new config();
         String resp;

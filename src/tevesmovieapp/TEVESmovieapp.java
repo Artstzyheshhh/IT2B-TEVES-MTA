@@ -16,7 +16,8 @@ config conf = new config();
             case 1:
                  movies mapp = new movies();
                  mapp.viewmovie();
-               
+                  customer cst = new customer();
+                  cst.addcustomers();
             break;
             case 2:
                 System.out.print("Enter password: ");
@@ -53,7 +54,7 @@ config conf = new config();
             System.out.print("try again: ");
             choice = sc.nextInt();
     }
-          
+            customer cst = new customer();
              switch(choice){
                  case 1:
                      
@@ -61,10 +62,11 @@ config conf = new config();
                      break;
                  case 2:
                     
+                      cst.options();
                      break;
                  case 3:
                      mapp.viewmovie();
-                     
+                     cst.viewcustomer();
                      break;
                  case 4:
                     TEVESmovieapp map = new TEVESmovieapp();

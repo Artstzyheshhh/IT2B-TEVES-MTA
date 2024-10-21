@@ -146,5 +146,44 @@ public class config {
         System.out.println("Error deleting record: " + e.getMessage());
     }
 }  
+    public int fetchAvailableSeats(int movieId) {
+        String sqlFetchSeats = "SELECT m_seats FROM tbl_movie WHERE m_id = ?";
+        int availableSeats = -1;
+
+        try (Connection conn = connectDB();
+             PreparedStatement pstmt = conn.prepareStatement(sqlFetchSeats)) {
+
+            pstmt.setInt(1, movieId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                availableSeats = rs.getInt("m_seats");
+            } else {
+                System.out.println("Movie not found!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching available seats: " + e.getMessage());
+        }
+
+        return availableSeats;
+    }
+
+    // Update seats after ticket purchase
+    public boolean updateSeats(int movieId, int newSeats) {
+        String sqlUpdateSeats = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
+
+        try (Connection conn = connectDB();
+             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateSeats)) {
+
+            pstmt.setInt(1, newSeats);
+            pstmt.setInt(2, movieId);
+            pstmt.executeUpdate();
+            System.out.println("Seats updated successfully! New available seats: " + newSeats);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error updating seats: " + e.getMessage());
+            return false;
+        }
+    }
     
 }
