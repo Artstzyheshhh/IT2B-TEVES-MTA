@@ -68,7 +68,7 @@ public class config {
 
             // Print the headers dynamically
             StringBuilder headerLine = new StringBuilder();
-            headerLine.append("-------------------------------------------------------------------------------------------\n| ");
+            headerLine.append("-------------------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
                 headerLine.append(String.format("%-15s | ", header)); // Adjust formatting as needed
             }
@@ -146,6 +146,8 @@ public class config {
         System.out.println("Error deleting record: " + e.getMessage());
     }
 }  
+    
+    
     public int fetchAvailableSeats(int movieId) {
         String sqlFetchSeats = "SELECT m_seats FROM tbl_movie WHERE m_id = ?";
         int availableSeats = -1;
@@ -168,7 +170,7 @@ public class config {
         return availableSeats;
     }
 
-    // Update seats after ticket purchase
+  
     public boolean updateSeats(int movieId, int newSeats) {
         String sqlUpdateSeats = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
 
@@ -186,4 +188,32 @@ public class config {
         }
     }
     
+    public String fetchMovieName(int movieId) {
+    String sql = "SELECT m_name FROM tbl_movie WHERE m_id = ?";
+    try (Connection conn = connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, movieId);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getString("m_name");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error fetching movie name: " + e.getMessage());
+    }
+    return null;
+}
+    public int fetchMoviePrice(int movieId) {
+    String sql = "SELECT m_price FROM tbl_movie WHERE m_id = ?";
+    try (Connection conn = connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, movieId);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("m_price");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error fetching movie price: " + e.getMessage());
+    }
+    return -1; 
+}
 }

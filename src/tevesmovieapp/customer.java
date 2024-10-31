@@ -54,43 +54,57 @@ public class customer {
       }
       
       //add
-   public void addcustomers() {
-        System.out.print("Customer name: ");
-        String name = sc.next();
-        System.out.print("Enter movie ID to buy: ");
-        int id = sc.nextInt();       
-        int availableSeats = conf.fetchAvailableSeats(id);
-
-        if (availableSeats == -1) {
-            return;         }
-
-        System.out.println("\nAvailable seats: " + availableSeats);
-          
-        System.out.print("Number of tickets to buy: ");
-        int ticket = sc.nextInt();
-        if (ticket > availableSeats) {
-        System.out.println("Not enough seats available! Only " + availableSeats + " seats left.");
-            return;
-        }
-        boolean updateSuccess = conf.updateSeats(id, availableSeats - ticket);
-        if (!updateSuccess) {
-            return; 
-        }
-        System.out.print("Cash: ");
-        int cash = sc.nextInt();
-        String sqlAddCustomer = "INSERT INTO tbl_customer (c_name, c_ticket, c_cash) VALUES (?, ?, ?)";
-        conf.addRecord(sqlAddCustomer, name, ticket, cash);
-
-        System.out.println("Customer added successfully!");
+ public void addcustomers() {
+    System.out.print("Customer name: ");
+    String name = sc.next();
+    System.out.print("Enter movie ID to buy: ");
+    int id = sc.nextInt();
+   
+    String movieName = conf.fetchMovieName(id);
+    int moviePrice = conf.fetchMoviePrice(id); 
+    int availableSeats = conf.fetchAvailableSeats(id);
+    if (availableSeats == -1 || movieName == null || moviePrice == -1) {
+        System.out.println("Movie ID not found or invalid details.");
+        return;
     }
+    System.out.println("\nAvailable seats for " + movieName + ": " + availableSeats);
+    System.out.println("Price per ticket for " + movieName + ": " + moviePrice);
+
+    System.out.print("Number of tickets to buy: ");
+    int ticket = sc.nextInt();
+
+    if (ticket > availableSeats) {
+        System.out.println("Not enough seats available! Only " + availableSeats + " seats left.");
+        return;
+    }
+  
+    int totalPrice = ticket * moviePrice;
+
+    System.out.println("Total price: " + totalPrice);
+    System.out.print("Cash: ");
+    int cash = sc.nextInt();
+    if (cash < totalPrice) {
+        System.out.println("Insufficient cash. Total price is " + totalPrice + " and you entered " + cash);
+        return;
+    }
+    boolean updateSuccess = conf.updateSeats(id, availableSeats - ticket);
+    if (!updateSuccess) {
+        System.out.println("Failed to update seats.");
+        return;
+    }
+    String sqlAddCustomer = "INSERT INTO tbl_customer (c_name, c_ticket, c_cash, c_movie, c_total) VALUES (?, ?, ?, ?, ?)";
+    conf.addRecord(sqlAddCustomer, name, ticket, cash, movieName, totalPrice);
+    System.out.println("Customer added successfully! Movie purchased: " + movieName + ", Total cost: " + totalPrice);
+}
+
 
 
       // view
       
      public void viewcustomer() {
         String sqlQuery = "SELECT * FROM tbl_customer";
-        String[] columnHeaders = {"ID", "Name", "tickets", "cash"};
-        String[] columnNames = {"c_id", "c_name", "c_ticket", "c_cash"};
+        String[] columnHeaders = {"ID", "Name", "tickets", "cash", "movie", "total"};
+        String[] columnNames = {"c_id", "c_name", "c_ticket", "c_cash","c_movie", "c_total" };
 
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
