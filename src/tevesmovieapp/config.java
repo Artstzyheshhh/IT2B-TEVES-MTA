@@ -72,7 +72,7 @@ public class config {
             for (String header : columnHeaders) {
                 headerLine.append(String.format("%-15s | ", header)); // Adjust formatting as needed
             }
-            headerLine.append("\n-------------------------------------------------------------------------------------------");
+            headerLine.append("\n-------------------------------------------------------------------------------------------------------------");
 
             System.out.println(headerLine.toString());
 
@@ -85,7 +85,7 @@ public class config {
                 }
                 System.out.println(row.toString());
             }
-            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.println("-------------------------------------------------------------------------------------------------------------");
 
         } catch (SQLException e) {
             System.out.println("Error retrieving records: " + e.getMessage());
