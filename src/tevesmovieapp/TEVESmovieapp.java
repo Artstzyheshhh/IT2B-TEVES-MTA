@@ -1,3 +1,4 @@
+
 package tevesmovieapp;
 
 import java.util.Scanner;
@@ -11,13 +12,10 @@ config conf = new config();
         System.out.println("2. Staffs: ");
         System.out.print("Who's using? ");
         int user = sc.nextInt();
-        
+        TEVESmovieapp map = new TEVESmovieapp();
         switch(user){
             case 1:
-                 movies mapp = new movies();
-                 mapp.viewmovie();
-                  customer cst = new customer();
-                  cst.addcustomers();
+                map.caccnt();
             break;
             case 2:
                 System.out.print("Enter password: ");
@@ -28,7 +26,7 @@ config conf = new config();
                 }
                 System.out.println("------------------------------------------------------------------");
                 System.out.println("correct password\n");
-                TEVESmovieapp map = new TEVESmovieapp();
+                
                 map.menu();
             break;
         }
@@ -45,7 +43,7 @@ config conf = new config();
           System.out.println("-------------------------------");
           System.out.println("MAIN MENU");
           System.out.println("1. MOVIES");
-          System.out.println("2. BUY TICKET");
+          System.out.println("2. CUSTOMERS");
           System.out.println("3. VIEW");
           System.out.println("4. EXIT");
           System.out.print("Enter choice: ");
@@ -77,6 +75,30 @@ config conf = new config();
           System.out.print("do another transaction (yes/no): ");
           resp = sc.next();
       }while(resp.equalsIgnoreCase("yes"));
+    }
+    
+    public void caccnt () {
+     Scanner sc = new Scanner(System.in);
+       System.out.print("\t CUSTOMER SELECTION ");
+       System.out.print("\n1. dont have an account");
+       System.out.print("\n2. already have an account");   
+       System.out.print("\nEnter selection: ");
+       int select = sc.nextInt();
+        while(select> 5){ 
+        System.out.print("invalid, try again : ");
+        select = sc.nextInt();
+    }  
+        switch(select){
+            case 1: 
+                movies mapp = new movies();
+                 mapp.viewmovie();
+                  customer cst = new customer();
+                  cst.addcustomers();
+                break;
+            case 2:
+                break;
+        
+        }
     }
      public void exitApp() {
         System.out.println("Exiting the application. Goodbye!");

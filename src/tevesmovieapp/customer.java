@@ -6,7 +6,7 @@ public class customer {
         String resp;
         Scanner sc = new Scanner(System.in);
       public void options(){
-      do{ 
+      do{      
           System.out.println("-------------");
           System.out.println("| CUSTOMERS |");
           System.out.println("-------------");
@@ -54,48 +54,49 @@ public class customer {
       }
       
       //add
- public void addcustomers() {
-    System.out.print("Customer name: ");
-    String name = sc.next();
-    System.out.print("Enter movie ID to buy: ");
-    int id = sc.nextInt();
-   
-    String movieName = conf.fetchMovieName(id);
-    int moviePrice = conf.fetchMoviePrice(id); 
-    int availableSeats = conf.fetchAvailableSeats(id);
-    if (availableSeats == -1 || movieName == null || moviePrice == -1) {
-        System.out.println("Movie ID not found or invalid details.");
-        return;
-    }
-    System.out.println("\nAvailable seats for " + movieName + ": " + availableSeats);
-    System.out.println("Price per ticket for " + movieName + ": " + moviePrice);
 
-    System.out.print("Number of tickets to buy: ");
-    int ticket = sc.nextInt();
-
-    if (ticket > availableSeats) {
-        System.out.println("Not enough seats available! Only " + availableSeats + " seats left.");
-        return;
-    }
-  
-    int totalPrice = ticket * moviePrice;
-
-    System.out.println("Total price: " + totalPrice);
-    System.out.print("Cash: ");
-    int cash = sc.nextInt();
-    if (cash < totalPrice) {
-        System.out.println("Insufficient cash. Total price is " + totalPrice + " and you entered " + cash);
-        return;
-    }
-    boolean updateSuccess = conf.updateSeats(id, availableSeats - ticket);
-    if (!updateSuccess) {
-        System.out.println("Failed to update seats.");
-        return;
-    }
-    String sqlAddCustomer = "INSERT INTO tbl_customer (c_name, c_ticket, c_cash, c_movie, c_total) VALUES (?, ?, ?, ?, ?)";
-    conf.addRecord(sqlAddCustomer, name, ticket, cash, movieName, totalPrice);
-    System.out.println("Customer added successfully! Movie purchased: " + movieName + ", Total cost: " + totalPrice);
-}
+   public void addcustomers() {   
+        System.out.print("Customer name: ");
+            String name = sc.next(); 
+        System.out.print("Enter movie ID to buy: ");
+            int mid = sc.nextInt();
+            
+        String movid = "SELECT m_id FROM tbl_movie WHERE m_id =?";
+        String mticket = "SELECT m_seats FROM tbl_movie WHERE m_id =?";     
+        String mprice = "SELECT m_price FROM tbl_movie WHERE m_id =?";
+        
+        double tickets = conf.getSingleValue(mticket, mid);
+        double price = conf.getSingleValue(mprice, mid);
+        
+        while(conf.getSingleValue(movid, mid) == 0){
+        System.out.print("\n movie does not existed try again: ");
+            mid = sc.nextInt();     } 
+        System.out.print("\ntickets available: "+tickets);
+        System.out.print("\nNumber of tickets to buy: ");
+            int ticket = sc.nextInt();
+            
+        while(ticket>tickets){
+        System.out.print("input limited tickets only: ");
+            ticket =sc.nextInt();     }
+            
+            double rseat = tickets - ticket; 
+            config conf = new config(); 
+            double total = ticket * price;
+        System.out.println("seats available :"+rseat);
+        System.out.println("total payment: "+total);
+        System.out.print("Cash: ");
+            int cash = sc.nextInt();
+         while(cash < price){ 
+        System.out.println("not enough ammount, enter larger ammount: ");
+           cash = sc.nextInt();   }    
+        double change = cash - total; 
+         System.out.println("change :"+change);
+        
+        String msql = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
+        conf.updateRecord(msql,rseat ,mid); 
+        String csql = "INSERT INTO tbl_customer (c_name, c_cash, c_ticket, c_total) VALUES (?, ?, ?, ?)";
+        conf.addRecord(csql, name, cash, ticket, total);
+        }
 
 
 
@@ -103,8 +104,10 @@ public class customer {
       
      public void viewcustomer() {
         String sqlQuery = "SELECT * FROM tbl_customer";
-        String[] columnHeaders = {"ID", "Name", "tickets", "cash", "movie", "total"};
-        String[] columnNames = {"c_id", "c_name", "c_ticket", "c_cash","c_movie", "c_total" };
+
+        String[] columnHeaders = {"ID", "Name", "tickets", "cash","total"};
+        String[] columnNames = {"c_id", "c_name", "c_ticket", "c_cash", "c_total"};
+
 
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
@@ -114,8 +117,7 @@ public class customer {
       
         System.out.print("Enter customer ID to edit: ");
         int id = sc.nextInt();
-        sc.nextLine();
-         
+        sc.nextLine();         
         System.out.print("New customer name: ");
         String name = sc.nextLine();
         System.out.print("New ticket: ");
@@ -131,12 +133,20 @@ public class customer {
     }
     
     public void deletecustomer(){
-          System.out.print("Enter customer ID to delete: ");
+         String delmore;
+        do{
+         System.out.print("Enter customer ID to delete: ");
         int id = sc.nextInt();
         
-        String sql = "DELETE FROM tbl_customer WHERE c_id = ?";
+         System.out.print("delete more:");
+         delmore = sc.next();
+         
+         String sql = "DELETE FROM tbl_customer WHERE c_id = ?";
         config conf = new config();
         conf.deleteRecord(sql, id);
+        }while(delmore.equalsIgnoreCase("yes"));
+        
+       
     }
     
     

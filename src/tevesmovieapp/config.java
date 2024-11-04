@@ -1,4 +1,3 @@
-
 package tevesmovieapp;
 
 import java.sql.Connection;
@@ -146,74 +145,46 @@ public class config {
         System.out.println("Error deleting record: " + e.getMessage());
     }
 }  
-    
-    
-    public int fetchAvailableSeats(int movieId) {
-        String sqlFetchSeats = "SELECT m_seats FROM tbl_movie WHERE m_id = ?";
-        int availableSeats = -1;
 
-        try (Connection conn = connectDB();
-             PreparedStatement pstmt = conn.prepareStatement(sqlFetchSeats)) {
-
-            pstmt.setInt(1, movieId);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                availableSeats = rs.getInt("m_seats");
+  private void setPreparedStatementValues(PreparedStatement pstmt, Object... values) throws SQLException {
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] instanceof Integer) {
+                pstmt.setInt(i + 1, (Integer) values[i]);
+            } else if (values[i] instanceof Double) {
+                pstmt.setDouble(i + 1, (Double) values[i]);
+            } else if (values[i] instanceof Float) {
+                pstmt.setFloat(i + 1, (Float) values[i]);
+            } else if (values[i] instanceof Long) {
+                pstmt.setLong(i + 1, (Long) values[i]);
+            } else if (values[i] instanceof Boolean) {
+                pstmt.setBoolean(i + 1, (Boolean) values[i]);
+            } else if (values[i] instanceof java.util.Date) {
+                pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime()));
+            } else if (values[i] instanceof java.sql.Date) {
+                pstmt.setDate(i + 1, (java.sql.Date) values[i]);
+            } else if (values[i] instanceof java.sql.Timestamp) {
+                pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]);
             } else {
-                System.out.println("Movie not found!");
+                pstmt.setString(i + 1, values[i].toString());
             }
-        } catch (SQLException e) {
-            System.out.println("Error fetching available seats: " + e.getMessage());
         }
-
-        return availableSeats;
     }
-
-  
-    public boolean updateSeats(int movieId, int newSeats) {
-        String sqlUpdateSeats = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
-
+    public double getSingleValue(String sql, Object... params) {
+        double result = 0.0;
         try (Connection conn = connectDB();
-             PreparedStatement pstmt = conn.prepareStatement(sqlUpdateSeats)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, newSeats);
-            pstmt.setInt(2, movieId);
-            pstmt.executeUpdate();
-            System.out.println("Seats updated successfully! New available seats: " + newSeats);
-            return true;
+            setPreparedStatementValues(pstmt, params);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                result = rs.getDouble(1);
+            }
+
         } catch (SQLException e) {
-            System.out.println("Error updating seats: " + e.getMessage());
-            return false;
+            System.out.println("Error retrieving single value: " + e.getMessage());
         }
+        return result;
     }
+
     
-    public String fetchMovieName(int movieId) {
-    String sql = "SELECT m_name FROM tbl_movie WHERE m_id = ?";
-    try (Connection conn = connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, movieId);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getString("m_name");
-        }
-    } catch (SQLException e) {
-        System.out.println("Error fetching movie name: " + e.getMessage());
-    }
-    return null;
-}
-    public int fetchMoviePrice(int movieId) {
-    String sql = "SELECT m_price FROM tbl_movie WHERE m_id = ?";
-    try (Connection conn = connectDB();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, movieId);
-        ResultSet rs = pstmt.executeQuery();
-        if (rs.next()) {
-            return rs.getInt("m_price");
-        }
-    } catch (SQLException e) {
-        System.out.println("Error fetching movie price: " + e.getMessage());
-    }
-    return -1; 
-}
 }
