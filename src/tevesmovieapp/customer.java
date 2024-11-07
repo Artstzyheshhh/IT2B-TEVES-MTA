@@ -56,46 +56,18 @@ public class customer {
       //add
 
    public void addcustomers() {   
-        System.out.print("Customer name: ");
-            String name = sc.next(); 
-        System.out.print("Enter movie ID to buy: ");
-            int mid = sc.nextInt();
-            
-        String movid = "SELECT m_id FROM tbl_movie WHERE m_id =?";
-        String mticket = "SELECT m_seats FROM tbl_movie WHERE m_id =?";     
-        String mprice = "SELECT m_price FROM tbl_movie WHERE m_id =?";
-        
-        double tickets = conf.getSingleValue(mticket, mid);
-        double price = conf.getSingleValue(mprice, mid);
-        
-        while(conf.getSingleValue(movid, mid) == 0){
-        System.out.print("\n movie does not existed try again: ");
-            mid = sc.nextInt();     } 
-        System.out.print("\ntickets available: "+tickets);
-        System.out.print("\nNumber of tickets to buy: ");
-            int ticket = sc.nextInt();
-            
-        while(ticket>tickets){
-        System.out.print("input limited tickets only: ");
-            ticket =sc.nextInt();     }
-            
-            double rseat = tickets - ticket; 
-            config conf = new config(); 
-            double total = ticket * price;
-        System.out.println("seats available :"+rseat);
-        System.out.println("total payment: "+total);
-        System.out.print("Cash: ");
-            int cash = sc.nextInt();
-         while(cash < price){ 
-        System.out.println("not enough ammount, enter larger ammount: ");
-           cash = sc.nextInt();   }    
-        double change = cash - total; 
-         System.out.println("change :"+change);
-        
-        String msql = "UPDATE tbl_movie SET m_seats = ? WHERE m_id = ?";
-        conf.updateRecord(msql,rseat ,mid); 
-        String csql = "INSERT INTO tbl_customer (c_name, c_cash, c_ticket, c_total) VALUES (?, ?, ?, ?)";
-        conf.addRecord(csql, name, cash, ticket, total);
+          
+        System.out.print("customer name: ");
+        String name = sc.next();
+        System.out.print("age: ");
+        int age = sc.nextInt();
+        System.out.print("cell no.: ");
+        String no = sc.next();
+        System.out.print("email: ");
+        int email = sc.nextInt();
+       
+        String sql = "INSERT INTO tbl_movie (c_name, c_age, c_num, c_email) VALUES (?, ?, ?, ?)";
+        conf.addRecord(sql, name, age, no, email);
         }
 
 
@@ -105,31 +77,28 @@ public class customer {
      public void viewcustomer() {
         String sqlQuery = "SELECT * FROM tbl_customer";
 
-        String[] columnHeaders = {"ID", "Name", "tickets", "cash","total"};
-        String[] columnNames = {"c_id", "c_name", "c_ticket", "c_cash", "c_total"};
-
-
+        String[] columnHeaders = {"ID", "Name", "age", "cell no. ","email"};
+        String[] columnNames = {"c_id", "c_name", "c_age", "c_num", "c_email"};
+       
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
      
         // update 
     public void Updatecustomer(){
-      
-        System.out.print("Enter customer ID to edit: ");
+        System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
-        sc.nextLine();         
-        System.out.print("New customer name: ");
-        String name = sc.nextLine();
-        System.out.print("New ticket: ");
-        int ticket = sc.nextInt();
-       
-        System.out.print("New cash: ");
-        String cash = sc.next();
-       
-    
-    String sql = "UPDATE tbl_customer SET c_name = ?, c_ticket = ?, c_cash = ? WHERE c_id = ?";
+       System.out.print("customer name: ");
+        String name = sc.next();
+        System.out.print("age: ");
+        int age = sc.nextInt();
+        System.out.print("cell no.: ");
+        String no = sc.next();
+        System.out.print("email: ");
+        int email = sc.nextInt();
+      
+        String sql = "UPDATE tbl_movie SET c_name = ?, c_age = ?, c_num = ?, c_email = ? WHERE c_id = ?";
     config conf = new config();
-    conf.updateRecord(sql, name, ticket, cash, id);
+    conf.updateRecord(sql, name,  age, no, email, id);
     }
     
     public void deletecustomer(){

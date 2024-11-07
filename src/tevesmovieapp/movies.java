@@ -63,6 +63,9 @@ public class movies {
         System.out.print("seats available: ");
         int seats = sc.nextInt();
        
+        
+         String tsql = "INSERT INTO tbl_transact (m_name, m_price) VALUES (?,?)";
+        conf.addRecord(tsql, name, price);
         String sql = "INSERT INTO tbl_movie (m_name, m_price, m_category, m_seats) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, price, category, seats);
     }
@@ -75,7 +78,14 @@ public class movies {
 
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
-     
+     //view transact
+      public void view() {
+        String sqlQuery = "SELECT * FROM tbl_transact";
+        String[] columnHeaders = {"ID", "Name", "price"};
+        String[] columnNames = {"t_id", "m_name", "m_price"};
+
+        conf.viewRecords(sqlQuery, columnHeaders, columnNames);
+    }
         // update 
     public void Updatemovie(){
       
@@ -92,7 +102,8 @@ public class movies {
         String category = sc.next();
         System.out.print("seats available: ");
         int seats = sc.nextInt();
-    
+        
+   
     String sql = "UPDATE tbl_movie SET m_name = ?, m_price = ?, m_category = ?, m_seats = ? WHERE m_id = ?";
     config conf = new config();
     conf.updateRecord(sql, name, price, category, seats, id);

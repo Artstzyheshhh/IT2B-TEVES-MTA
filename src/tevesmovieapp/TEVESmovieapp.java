@@ -65,6 +65,7 @@ config conf = new config();
                  case 3:
                      mapp.viewmovie();
                      cst.viewcustomer();
+                     mapp.view();
                      break;
                  case 4:
                     TEVESmovieapp map = new TEVESmovieapp();
