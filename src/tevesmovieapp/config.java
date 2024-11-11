@@ -69,7 +69,7 @@ public class config {
             StringBuilder headerLine = new StringBuilder();
             headerLine.append("-------------------------------------------------------------------------------------------------------------\n| ");
             for (String header : columnHeaders) {
-                headerLine.append(String.format("%-15s | ", header)); // Adjust formatting as needed
+                headerLine.append(String.format("%-20s | ", header)); // Adjust formatting as needed
             }
             headerLine.append("\n-------------------------------------------------------------------------------------------------------------");
 
@@ -80,7 +80,7 @@ public class config {
                 StringBuilder row = new StringBuilder("| ");
                 for (String colName : columnNames) {
                     String value = rs.getString(colName);
-                    row.append(String.format("%-15s | ", value != null ? value : "")); // Adjust formatting
+                    row.append(String.format("%-20s | ", value != null ? value : "")); // Adjust formatting
                 }
                 System.out.println(row.toString());
             }

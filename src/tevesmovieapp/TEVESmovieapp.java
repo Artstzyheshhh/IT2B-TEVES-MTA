@@ -10,7 +10,7 @@ config conf = new config();
         Scanner sc = new Scanner(System.in);
         System.out.println("1. customer: ");
         System.out.println("2. Staffs: ");
-        System.out.print("Who's using? ");
+        System.out.print("Select user: ");
         int user = sc.nextInt();
         TEVESmovieapp map = new TEVESmovieapp();
         switch(user){
@@ -44,14 +44,16 @@ config conf = new config();
           System.out.println("MAIN MENU");
           System.out.println("1. MOVIES");
           System.out.println("2. CUSTOMERS");
-          System.out.println("3. VIEW");
-          System.out.println("4. EXIT");
+          System.out.println("3. BUY TICKETS");
+          System.out.println("4. VIEW");
+          System.out.println("5. EXIT");
           System.out.print("Enter choice: ");
           int choice = sc.nextInt();
           while(choice> 5){ 
             System.out.print("try again: ");
             choice = sc.nextInt();
-    }
+    }        
+            transact trn = new transact();
             customer cst = new customer();
              switch(choice){
                  case 1:
@@ -63,11 +65,14 @@ config conf = new config();
                       cst.options();
                      break;
                  case 3:
+                     trn.options();
+                     break;    
+                 case 4:
                      mapp.viewmovie();
                      cst.viewcustomer();
-                     mapp.view();
+                 
                      break;
-                 case 4:
+                 case 5:
                     TEVESmovieapp map = new TEVESmovieapp();
                     map.exitApp();
                      break;
@@ -81,22 +86,29 @@ config conf = new config();
     public void caccnt () {
      Scanner sc = new Scanner(System.in);
        System.out.print("\t CUSTOMER SELECTION ");
-       System.out.print("\n1. dont have an account");
-       System.out.print("\n2. already have an account");   
+       System.out.print("\n1. Add account");
+       System.out.print("\n2. Edit account "); 
+       System.out.print("\n3. Buy tickets "); 
        System.out.print("\nEnter selection: ");
        int select = sc.nextInt();
         while(select> 5){ 
         System.out.print("invalid, try again : ");
         select = sc.nextInt();
-    }  
+    }  customer cst = new customer();
+       transact trn = new transact();
         switch(select){
             case 1: 
-                movies mapp = new movies();
-                 mapp.viewmovie();
-                  customer cst = new customer();
+                  cst.viewcustomer();
                   cst.addcustomers();
                 break;
             case 2:
+                cst.viewcustomer();
+                cst.addcustomers();
+                break;
+            case 3:
+               
+                trn.addtransact();
+              
                 break;
         
         }

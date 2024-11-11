@@ -64,8 +64,7 @@ public class movies {
         int seats = sc.nextInt();
        
         
-         String tsql = "INSERT INTO tbl_transact (m_name, m_price) VALUES (?,?)";
-        conf.addRecord(tsql, name, price);
+        
         String sql = "INSERT INTO tbl_movie (m_name, m_price, m_category, m_seats) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, price, category, seats);
     }

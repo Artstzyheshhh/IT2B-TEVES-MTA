@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class customer {
        config conf = new config();
-        String resp;
+       String resp;
         Scanner sc = new Scanner(System.in);
       public void options(){
       do{      
@@ -25,7 +25,7 @@ public class customer {
               customer cst = new customer();
              switch(choices){
                  case 1:
-                     mapp.viewmovie();
+                     cst.viewcustomer();
                      cst.addcustomers();
                      break;
                  case 2:
@@ -50,7 +50,7 @@ public class customer {
              } 
         System.out.print("do another transaction(yes/no): ");
         resp = sc.next();
-        }while(resp.equalsIgnoreCase("yes"));
+        }while(resp.equalsIgnoreCase("yes")); 
       }
       
       //add
@@ -64,9 +64,9 @@ public class customer {
         System.out.print("cell no.: ");
         String no = sc.next();
         System.out.print("email: ");
-        int email = sc.nextInt();
+        String email = sc.next();
        
-        String sql = "INSERT INTO tbl_movie (c_name, c_age, c_num, c_email) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO tbl_customer (c_name, c_age, c_num, c_email) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, age, no, email);
         }
 
@@ -85,7 +85,7 @@ public class customer {
      
         // update 
     public void Updatecustomer(){
-        System.out.print("Enter movie ID to edit: ");
+        System.out.print("Enter customer ID to edit: ");
         int id = sc.nextInt();
        System.out.print("customer name: ");
         String name = sc.next();
@@ -94,9 +94,9 @@ public class customer {
         System.out.print("cell no.: ");
         String no = sc.next();
         System.out.print("email: ");
-        int email = sc.nextInt();
+        String email = sc.next();
       
-        String sql = "UPDATE tbl_movie SET c_name = ?, c_age = ?, c_num = ?, c_email = ? WHERE c_id = ?";
+        String sql = "UPDATE tbl_customer SET c_name = ?, c_age = ?, c_num = ?, c_email = ? WHERE c_id = ?";
     config conf = new config();
     conf.updateRecord(sql, name,  age, no, email, id);
     }
