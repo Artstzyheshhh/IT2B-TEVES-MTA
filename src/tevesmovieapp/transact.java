@@ -118,7 +118,7 @@ public class transact {
         // update 
     public void Updatetransact(){
            transact trn = new transact();
-        trn.viewtransact();
+           trn.viewtransact();
         System.out.print("Enter transact id: ");
         int tid = sc.nextInt(); 
         
@@ -178,21 +178,22 @@ public class transact {
     }
     
     public void deletetransact(){
-        System.out.println("Enter no. of transaction to delete: ");
-        int trnd =sc.nextInt();
-        
-        for (int i = 0; i < trnd; i++){
+          String delmore;
+        do{
         System.out.print("Enter transact ID to delete: ");
-        int tid = sc.nextInt();
+        int id = sc.nextInt();
+         
         String trnid = "SELECT t_id FROM tbl_transact WHERE t_id =?"; 
-        while(conf.getSingleValue(trnid, tid) == 0){
-              System.out.print("\n transaction not found, try again: ");
-              tid = sc.nextInt(); }
+        while(conf.getSingleValue(trnid, id) == 0){
+              System.out.print("\n movie not found, try again: ");
+              id = sc.nextInt(); }        
+        System.out.print("delete more:");
+        delmore = sc.next();                
         
         String sql = "DELETE FROM tbl_transact WHERE t_id = ?";
         config conf = new config();
-        conf.deleteRecord(sql, tid);  
-        }  
-        
+        conf.deleteRecord(sql, id);
+        }while(delmore.equalsIgnoreCase("yes"));
+
     }
 }

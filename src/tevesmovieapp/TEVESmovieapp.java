@@ -52,7 +52,7 @@ config conf = new config();
           while(choice> 5){ 
             System.out.print("try again: ");
             choice = sc.nextInt();
-    }        
+    }       report rp = new report(); 
             transact trn = new transact();
             customer cst = new customer();
              switch(choice){
@@ -68,9 +68,7 @@ config conf = new config();
                      trn.options();
                      break;    
                  case 4:
-                     mapp.viewmovie();
-                     cst.viewcustomer();
-                 
+                     rp.viewgenreport();
                      break;
                  case 5:
                     TEVESmovieapp map = new TEVESmovieapp();

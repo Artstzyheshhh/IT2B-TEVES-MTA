@@ -90,7 +90,11 @@ public class movies {
       
         System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
-        sc.nextLine();
+        
+        String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
+        while(conf.getSingleValue(cusid, id) == 0){
+              System.out.print("\n Customer not found, try again: ");
+              id = sc.nextInt(); }
          
         System.out.print("New movie name: ");
         String name = sc.nextLine();
@@ -109,14 +113,23 @@ public class movies {
     }
     
     public void deletemovie(){
-          System.out.print("Enter movie ID to delete: ");
+        String delmore;
+        do{
+        System.out.print("Enter movie ID to delete: ");
         int id = sc.nextInt();
+         
+        String movid = "SELECT m_id FROM tbl_movie WHERE m_id =?"; 
+        while(conf.getSingleValue(movid, id) == 0){
+              System.out.print("\n movie not found, try again: ");
+              id = sc.nextInt(); }        
+        System.out.print("delete more:");
+        delmore = sc.next();                
         
         String sql = "DELETE FROM tbl_movie WHERE m_id = ?";
         config conf = new config();
         conf.deleteRecord(sql, id);
-    }
+        }while(delmore.equalsIgnoreCase("yes"));
 }
   
-
+}
 

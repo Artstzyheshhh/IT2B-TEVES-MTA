@@ -185,6 +185,21 @@ public class config {
         }
         return result;
     }
+  public String getString(String sql, Object... params) {
+     String result = null;
+     try (Connection conn = connectDB();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+        setPreparedStatementValues(pstmt, params);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            result = rs.getString(1);
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error retrieving single value as String: " + e.getMessage());
+    }
+    return result;
+}
     
 }

@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class report {
     Scanner sc = new Scanner(System.in);
+    config conf = new config();
     public void report() {
         String resp;
      do{      
@@ -18,15 +19,13 @@ public class report {
         System.out.print("try again : ");
         choices = sc.nextInt();
     }
-              movies mapp = new movies();
-              customer cst = new customer();
+              report rp = new report();
              switch(choices){
                  case 1:
-                     cst.viewcustomer();
-                     cst.addcustomers();
+                     rp.viewgenreport();
                      break;
                  case 2:
-                    cst.viewcustomer();
+                  
                      break;                
                   case 3:
                        TEVESmovieapp map = new TEVESmovieapp();
@@ -42,13 +41,26 @@ public class report {
     
         public void viewgenreport(){
          
-    String sqlQuery  = "SELECT t_id, c_name, m_name, _type , b_cin,b_cout,b_total, b_cash, b_change FROM tbl_bookings "
-               + "LEFT JOIN tbl_customer ON tbl_guest.c_id = tbl_transact.c_id "
-               + "LEFT JOIN tbl_room ON tbl_room.r_id = tbl_bookings.r_id";
-        String[] columnHeaders = {"B_ID", "Guest Name", "Guest Status", "Room Type", "Check-In", "Check-Out", "Total", "Cash", "Change"};
-        String[] columnNames  = {"b_id", "g_name", "g_status", "r_type", "b_cin", "b_cout", "b_total", "b_cash", "b_change"};
+    String sqlQuery  = "SELECT t_id, c_name, m_name , t_ticket FROM tbl_transact "
+               + "LEFT JOIN tbl_customer ON tbl_customer.c_id = tbl_transact.c_id "
+               + "LEFT JOIN tbl_movie ON tbl_movie.m_id = tbl_transact.m_id";
+        String[] columnHeaders = {"transact_ID", "customerName", "movieName", "ticket bought"};
+        String[] columnNames  = {"t_id", "c_name", "m_name", "t_ticket"};
+         conf.viewRecords(sqlQuery, columnHeaders, columnNames);  
+        }
         
+        public void viewspecific (){
+            System.out.println("Enter transact id: ");
+            int tid = sc.nextInt(); 
+        
+           String trnid = "SELECT t_id FROM tbl_transact WHERE t_id =?"; 
+           while(conf.getSingleValue(trnid, tid) == 0){
+               System.out.print("\n transaction not found, try again: ");
+               tid = sc.nextInt(); }
+            
+            
+            
         }
 }
 
-
+   

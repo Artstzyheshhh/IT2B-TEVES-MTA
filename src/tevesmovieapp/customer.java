@@ -85,9 +85,15 @@ public class customer {
      
         // update 
     public void Updatecustomer(){
-        System.out.print("Enter customer ID to edit: ");
-        int id = sc.nextInt();
-       System.out.print("customer name: ");
+         System.out.print("Enter customer ID to edit: ");
+         int id = sc.nextInt();
+        
+         String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
+         while(conf.getSingleValue(cusid, id) == 0){
+              System.out.print("\n Customer not found, try again: ");
+              id = sc.nextInt(); }
+        
+        System.out.print("customer name: ");
         String name = sc.next();
         System.out.print("age: ");
         int age = sc.nextInt();
@@ -104,13 +110,17 @@ public class customer {
     public void deletecustomer(){
          String delmore;
         do{
-         System.out.print("Enter customer ID to delete: ");
+        System.out.print("Enter customer ID to delete: ");
         int id = sc.nextInt();
-        
+         
+        String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
+        while(conf.getSingleValue(cusid, id) == 0){
+              System.out.print("\n Customer not found, try again: ");
+              id = sc.nextInt(); }        
          System.out.print("delete more:");
          delmore = sc.next();
          
-         String sql = "DELETE FROM tbl_customer WHERE c_id = ?";
+        String sql = "DELETE FROM tbl_customer WHERE c_id = ?";
         config conf = new config();
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
