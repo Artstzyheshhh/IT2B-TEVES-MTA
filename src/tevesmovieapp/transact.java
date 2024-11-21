@@ -11,7 +11,9 @@ public class transact {
         String resp;
         Scanner sc = new Scanner(System.in);
       public void options(){
-      do{ 
+           try{
+           
+             do{ 
           System.out.println("-------------------------------");
           System.out.println("| MOVIE TICKETING APPLICATION |");
           System.out.println("-------------------------------");
@@ -54,11 +56,20 @@ public class transact {
         System.out.print("do another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes"));
+           
+           }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+          
+     
       }
       
       //add
       public void addtransact(){
-        cst.viewcustomer();
+           try{
+           
+            cst.viewcustomer();
         System.out.print("Enter customer id: ");
         int cid = sc.nextInt(); 
         String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
@@ -102,6 +113,11 @@ public class transact {
         conf.updateRecord(usql, rseat, mid);        
         String sql = "INSERT INTO tbl_transact (c_id, m_id, t_ticket, t_cash, t_total, t_change) VALUES (?, ?, ?, ?, ?, ?)";
         conf.addRecord(sql, cid, mid, ticket, cash, total, change);
+               
+           }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
     }
       // view
       
@@ -117,7 +133,9 @@ public class transact {
  
         // update 
     public void Updatetransact(){
-           transact trn = new transact();
+         try{
+         
+          transact trn = new transact();
            trn.viewtransact();
         System.out.print("Enter transact id: ");
         int tid = sc.nextInt(); 
@@ -172,13 +190,19 @@ public class transact {
         
        String sql = "UPDATE tbl_transact SET c_id = ?, m_id = ?, t_ticket = ?, t_cash = ?, t_total = ?, t_change = ?   WHERE t_id = ?";    
        conf.updateRecord(sql, cid, mid, ticket, cash, total, change, tid); 
+         }catch(Exception e){
+              System.out.print("rnter a valid character");
+              
+          }
+          
      
       
         
     }
     
     public void deletetransact(){
-          String delmore;
+         try{
+            String delmore;
         do{
         System.out.print("Enter transact ID to delete: ");
         int id = sc.nextInt();
@@ -195,5 +219,10 @@ public class transact {
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
 
+         
+         }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
     }
 }

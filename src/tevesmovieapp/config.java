@@ -12,7 +12,7 @@ public class config {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:movieapp.db"); 
-            System.out.println("Connection Successful");
+            System.out.println("   ");
         } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
         }
@@ -119,7 +119,7 @@ public class config {
             }
 
             pstmt.executeUpdate();
-            System.out.println("Record updated successfully!");
+            System.out.println("   ");
         } catch (SQLException e) {
             System.out.println("Error updating record: " + e.getMessage());
         }

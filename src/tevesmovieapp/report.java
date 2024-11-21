@@ -6,7 +6,8 @@ public class report {
     config conf = new config();
     public void report() {
         String resp;
-     do{      
+        try{
+         do{      
           System.out.println("-------------");
           System.out.println("| REPORTS |");
           System.out.println("-------------");
@@ -25,7 +26,7 @@ public class report {
                      rp.viewgenreport();
                      break;
                  case 2:
-                  
+                      rp.viewspecific();
                      break;                
                   case 3:
                        TEVESmovieapp map = new TEVESmovieapp();
@@ -36,6 +37,11 @@ public class report {
         System.out.print("do another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes")); 
+        
+        }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+    
     
     }
     
@@ -50,14 +56,29 @@ public class report {
         }
         
         public void viewspecific (){
-            System.out.println("Enter transact id: ");
-            int tid = sc.nextInt(); 
-        
-           String trnid = "SELECT t_id FROM tbl_transact WHERE t_id =?"; 
-           while(conf.getSingleValue(trnid, tid) == 0){
-               System.out.print("\n transaction not found, try again: ");
-               tid = sc.nextInt(); }
             
+            int id;
+            try{
+                report rp = new report();
+                rp.viewgenreport();
+                System.out.print("Enter specific transaction id: ");
+                id = sc.nextInt();
+                
+               String trnid = "SELECT t_id FROM tbl_transact WHERE t_id =?"; 
+           while(conf.getSingleValue(trnid, id) == 0){
+               System.out.print("\n transaction not found, try again: ");
+               id = sc.nextInt(); }
+               String cusname = " SELECT c_name FROM tbl_transact WHRERE t_id =? ";
+               String cname =  conf.getString(cusname, id);
+                System.out.println("transact info: ");
+                System.out.print("customer name: "+cname);
+               
+            }catch(Exception e){
+                System.out.println("Enter an integer");
+            }
+           
+            
+              
             
             
         }

@@ -5,6 +5,9 @@ public class movies {
         String resp;
         Scanner sc = new Scanner(System.in);
       public void options(){
+        try{
+        
+              
       do{ 
           System.out.println("-------------------------------");
           System.out.println("| MOVIE TICKETING APPLICATION |");
@@ -49,11 +52,17 @@ public class movies {
         System.out.print("do another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes"));
+        }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+           
+          
+    
       }
       
       //add
       public void addmovie(){
-        
+        try{
         System.out.print("Movie name: ");
         String name = sc.next();
         System.out.print("price: ");
@@ -62,11 +71,14 @@ public class movies {
         String category = sc.next();
         System.out.print("seats available: ");
         int seats = sc.nextInt();
-       
-        
-        
+                
         String sql = "INSERT INTO tbl_movie (m_name, m_price, m_category, m_seats) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, price, category, seats);
+        
+        }catch(Exception e){
+            System.out.println("enter valid character:");       
+        }
+             
     }
       // view
       
@@ -87,7 +99,9 @@ public class movies {
     }
         // update 
     public void Updatemovie(){
-      
+     try{}catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
         System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
         
@@ -113,6 +127,10 @@ public class movies {
     }
     
     public void deletemovie(){
+        
+     try{}catch(Exception e){
+              System.out.print("rnter a valid character");
+          }    
         String delmore;
         do{
         System.out.print("Enter movie ID to delete: ");
@@ -129,6 +147,7 @@ public class movies {
         config conf = new config();
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
+        
 }
   
 }

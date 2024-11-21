@@ -8,7 +8,9 @@ config conf = new config();
 
     public static void main(String[] args) { 
         Scanner sc = new Scanner(System.in);
-        System.out.println("1. customer: ");
+         try{
+         
+           System.out.println("1. customer: ");
         System.out.println("2. Staffs: ");
         System.out.print("Select user: ");
         int user = sc.nextInt();
@@ -31,13 +33,21 @@ config conf = new config();
             break;
         }
        
+             
+         }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+     
        
       }    
     public void menu(){   
       String resp;
         Scanner sc = new Scanner(System.in);
         movies mapp = new movies();
-      do{
+         try{
+         
+           do{
           System.out.println("-------------------------------");
           System.out.println("| MOVIE TICKETING APPLICATION |");
           System.out.println("-------------------------------");
@@ -68,7 +78,7 @@ config conf = new config();
                      trn.options();
                      break;    
                  case 4:
-                     rp.viewgenreport();
+                     rp.report();
                      break;
                  case 5:
                     TEVESmovieapp map = new TEVESmovieapp();
@@ -79,11 +89,20 @@ config conf = new config();
           System.out.print("do another transaction (yes/no): ");
           resp = sc.next();
       }while(resp.equalsIgnoreCase("yes"));
+             
+         }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+    
     }
     
     public void caccnt () {
      Scanner sc = new Scanner(System.in);
-       System.out.print("\t CUSTOMER SELECTION ");
+     String resp;
+      try{
+      do{
+      System.out.print("\t CUSTOMER SELECTION ");
        System.out.print("\n1. Add account");
        System.out.print("\n2. Edit account "); 
        System.out.print("\n3. Buy tickets "); 
@@ -110,8 +129,18 @@ config conf = new config();
                 break;
         
         }
+          System.out.print("do another transaction (yes/no): ");
+          resp = sc.next();
+       }while(resp.equalsIgnoreCase("yes"));
+      }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+       
     }
+    
      public void exitApp() {
+         
         System.out.println("Exiting the application. Goodbye!");
         System.exit(0);  
     }

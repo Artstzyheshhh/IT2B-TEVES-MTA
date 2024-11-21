@@ -6,7 +6,9 @@ public class customer {
        String resp;
         Scanner sc = new Scanner(System.in);
       public void options(){
-      do{      
+         try{
+         
+                do{      
           System.out.println("-------------");
           System.out.println("| CUSTOMERS |");
           System.out.println("-------------");
@@ -51,13 +53,27 @@ public class customer {
         System.out.print("do another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes")); 
+         
+         }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }  
+          
+   
       }
       
       //add
 
    public void addcustomers() {   
-          
-        System.out.print("customer name: ");
+       
+        try{
+        
+        
+        }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+        try{
+       System.out.print("customer name: ");
         String name = sc.next();
         System.out.print("age: ");
         int age = sc.nextInt();
@@ -68,6 +84,12 @@ public class customer {
        
         String sql = "INSERT INTO tbl_customer (c_name, c_age, c_num, c_email) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, age, no, email);
+  
+  
+      }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
         }
 
 
@@ -85,6 +107,7 @@ public class customer {
      
         // update 
     public void Updatecustomer(){
+        try{
          System.out.print("Enter customer ID to edit: ");
          int id = sc.nextInt();
         
@@ -105,10 +128,16 @@ public class customer {
         String sql = "UPDATE tbl_customer SET c_name = ?, c_age = ?, c_num = ?, c_email = ? WHERE c_id = ?";
     config conf = new config();
     conf.updateRecord(sql, name,  age, no, email, id);
+        
+        }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+        
     }
     
     public void deletecustomer(){
-         String delmore;
+          try{
+          String delmore;
         do{
         System.out.print("Enter customer ID to delete: ");
         int id = sc.nextInt();
@@ -124,6 +153,11 @@ public class customer {
         config conf = new config();
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
+          }catch(Exception e){
+              System.out.print("rnter a valid character");
+          }
+       
+         
         
        
     }
