@@ -4,7 +4,7 @@ package tevesmovieapp;
 import java.util.Scanner;
 
 public class transact {
-      
+        
         movies mapp = new movies();
         customer cst = new customer();
         config conf = new config();
@@ -28,22 +28,32 @@ public class transact {
         System.out.print("try again : ");
         choices = sc.nextInt();
     }      
-               transact trn = new transact();
+           transact trn = new transact();   
              switch(choices){
                  case 1:
-                     trn.viewtransact();
+                      System.out.println("\t--------------------------");
+                      System.out.println("\t|     ADD TRANSACTION    |");
+                      System.out.println("\t--------------------------"); 
                      trn.addtransact();
                      break;
                  case 2:
-                     trn.viewtransact();
+                      System.out.println("\t-----------------------------");
+                      System.out.println("\t|     UPDATE TRANSACTION    |");
+                      System.out.println("\t-----------------------------"); 
                      trn.Updatetransact();
                      trn.viewtransact();
                      break;
                  case 3:
+                     System.out.println("\t-----------------------------");
+                     System.out.println("\t|    TRANSACTION REPORT     |");
+                     System.out.println("\t-----------------------------");
                      trn.viewtransact();
                      break;
                      
                  case 4:
+                      System.out.println("\t-----------------------------");
+                      System.out.println("\t|     DELETE TRANSACTION    |");
+                      System.out.println("\t-----------------------------"); 
                      trn.viewtransact();
                      trn.deletetransact();
                      break;
@@ -68,7 +78,7 @@ public class transact {
       //add
       public void addtransact(){
            try{         
-            
+        cst.viewcustomer();
         System.out.print("Enter customer id: ");
         int cid = sc.nextInt(); 
         String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
@@ -134,8 +144,8 @@ public class transact {
     public void Updatetransact(){
          try{
          
-          transact trn = new transact();
-           trn.viewtransact();
+         transact trn = new transact(); 
+        trn.viewtransact();
         System.out.print("Enter transact id: ");
         int tid = sc.nextInt(); 
         

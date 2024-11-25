@@ -26,19 +26,31 @@ public class movies {
               movies mapp = new movies();
              switch(choices){
                  case 1:
+                      System.out.println("\t--------------------");
+                      System.out.println("\t|     ADD MOVIE    |");
+                      System.out.println("\t--------------------"); 
                       mapp.viewmovie();
                      mapp.addmovie();
                      break;
                  case 2:
+                      System.out.println("\t-----------------------");
+                      System.out.println("\t|     MOVIE REPORT    |");
+                      System.out.println("\t-----------------------"); 
                      mapp.viewmovie();
                      break;
                  case 3:
+                      System.out.println("\t-----------------------");
+                      System.out.println("\t|     UPDATE MOVIE    |");
+                      System.out.println("\t-----------------------"); 
                       mapp.viewmovie();
                      mapp.Updatemovie();
                      mapp.viewmovie();
                      break;
                      
                  case 4:
+                      System.out.println("\t-----------------------");
+                      System.out.println("\t|     DELETE MOVIE    |");
+                      System.out.println("\t-----------------------"); 
                       mapp.viewmovie();
                       mapp.deletemovie();
                        mapp.viewmovie();
@@ -62,6 +74,7 @@ public class movies {
       
       //add
       public void addmovie(){
+         
         try{
         System.out.print("Movie name: ");
         String name = sc.next();
@@ -78,7 +91,7 @@ public class movies {
         }catch(Exception e){
             System.out.println("enter valid character:");       
         }
-             
+          
     }
       // view
       

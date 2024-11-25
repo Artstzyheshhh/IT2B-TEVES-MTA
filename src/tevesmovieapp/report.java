@@ -23,9 +23,15 @@ public class report {
               report rp = new report();
              switch(choices){
                  case 1:
+                       System.out.println("\t-------------------------");
+                       System.out.println("\t|    GENERAL REPORT     |");
+                       System.out.println("\t-------------------------");
                      rp.viewgenreport();
                      break;
                  case 2:
+                       System.out.println("\t---------------------------");
+                       System.out.println("\t|    INDIVIUAL REPORT     |");
+                       System.out.println("\t---------------------------");
                      rp.viewgenreport();
                       rp.viewSpecific();
                      break;                
@@ -61,7 +67,9 @@ public class report {
         public void viewSpecific() {
         
         
-        try {         
+        try { 
+          
+            
             System.out.print("Enter specific transaction ID: ");
             int id = sc.nextInt();
            

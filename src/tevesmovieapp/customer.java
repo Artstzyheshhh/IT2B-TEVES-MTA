@@ -27,19 +27,31 @@ public class customer {
               customer cst = new customer();
              switch(choices){
                  case 1:
+                      System.out.println("\t------------------------");
+                      System.out.println("\t|     ADD CUSTOMER    |");
+                      System.out.println("\t-----------------------"); 
                      cst.viewcustomer();
                      cst.addcustomers();
                      break;
                  case 2:
+                      System.out.println("\t-----------------------------");
+                      System.out.println("\t|     VIEW CUSTOMER LIST    |");
+                      System.out.println("\t-----------------------------"); 
                     cst.viewcustomer();
                      break;
                  case 3:
+                      System.out.println("\t-------------------------------");
+                      System.out.println("\t|     UPDATE CUSTOMER INFO    |");
+                      System.out.println("\t-------------------------------"); 
                       cst.viewcustomer();
                      cst.Updatecustomer();
                       cst.viewcustomer();
                      break;
                      
                  case 4:
+                      System.out.println("\t--------------------------");
+                      System.out.println("\t|     DELETE CUSTOMER    |");
+                      System.out.println("\t--------------------------"); 
                       cst.viewcustomer();
                       cst.deletecustomer();
                        cst.viewcustomer();
@@ -50,7 +62,7 @@ public class customer {
                      break;
                                               
              } 
-        System.out.print("do another transaction(yes/no): ");
+        System.out.println("do another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes")); 
          

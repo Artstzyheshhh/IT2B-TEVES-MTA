@@ -9,8 +9,11 @@ config conf = new config();
     public static void main(String[] args) { 
         Scanner sc = new Scanner(System.in);
          try{
-         
-           System.out.println("1. customer: ");
+          System.out.println("-------------------------------");
+          System.out.println("| MOVIE TICKETING APPLICATION |");
+          System.out.println("-------------------------------");
+             
+        System.out.println("1. customer: ");
         System.out.println("2. Staffs: ");
         System.out.print("Select user: ");
         int user = sc.nextInt();
@@ -90,7 +93,7 @@ config conf = new config();
                      break;
                                                                
              }                                          
-          System.out.print("do another transaction (yes/no): ");
+          System.out.println("do another transaction (yes/no): ");
           resp = sc.next();
       }while(resp.equalsIgnoreCase("yes"));
              
@@ -106,17 +109,22 @@ config conf = new config();
      String resp;
       try{
       do{
-      System.out.print("\t CUSTOMER SELECTION ");
+       System.out.println("\t--------------------------");  
+       System.out.println("\t|   CUSTOMER SELECTION   |");
+       System.out.println("\t--------------------------");
+       
        System.out.print("\n1. Add account");
        System.out.print("\n2. Edit account "); 
        System.out.print("\n3. Buy tickets "); 
        System.out.print("\nEnter selection: ");
        int select = sc.nextInt();
-        while(select> 5){ 
+        while(select> 3){ 
         System.out.print("invalid, try again : ");
         select = sc.nextInt();
-    }  customer cst = new customer();
-       transact trn = new transact();
+        
+    }    movies mapp = new movies();
+        customer cst = new customer();
+        transact trn = new transact();
         switch(select){
             case 1: 
                   cst.viewcustomer();
@@ -124,7 +132,7 @@ config conf = new config();
                 break;
             case 2:
                 cst.viewcustomer();
-                cst.addcustomers();
+                cst.Updatecustomer();
                 break;
             case 3:
                
@@ -133,7 +141,7 @@ config conf = new config();
                 break;
         
         }
-          System.out.print("do another transaction (yes/no): ");
+          System.out.println("do another transaction (yes/no): ");
           resp = sc.next();
        }while(resp.equalsIgnoreCase("yes"));
       }catch(Exception e){
