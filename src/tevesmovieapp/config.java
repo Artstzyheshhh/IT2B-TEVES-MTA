@@ -12,7 +12,7 @@ public class config {
         try {
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:movieapp.db"); 
-            System.out.println("   ");
+            System.out.print("  ");
         } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
         }
@@ -119,7 +119,7 @@ public class config {
             }
 
             pstmt.executeUpdate();
-            System.out.println("   ");
+            System.out.print("  ");
         } catch (SQLException e) {
             System.out.println("Error updating record: " + e.getMessage());
         }
@@ -185,21 +185,27 @@ public class config {
         }
         return result;
     }
-  public String getString(String sql, Object... params) {
-     String result = null;
-     try (Connection conn = connectDB();
+    
+    
+   public String getString(String sql, Object... params) {
+    String result = null;
+    try (Connection conn = connectDB();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        setPreparedStatementValues(pstmt, params);
-        ResultSet rs = pstmt.executeQuery();
+        setPreparedStatementValues(pstmt, params); 
+        ResultSet rs = pstmt.executeQuery(); 
+
         if (rs.next()) {
             result = rs.getString(1);
+        } else {
+            System.out.println("No results found for query: " + sql);
         }
 
     } catch (SQLException e) {
-        System.out.println("Error retrieving single value as String: " + e.getMessage());
+        System.out.println("SQL Error: " + e.getMessage());
+    } catch (Exception e) {
+        System.out.println("Unexpected Error: " + e.getMessage());
     }
     return result;
 }
-    
 }

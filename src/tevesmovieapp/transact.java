@@ -67,9 +67,8 @@ public class transact {
       
       //add
       public void addtransact(){
-           try{
-           
-            cst.viewcustomer();
+           try{         
+            
         System.out.print("Enter customer id: ");
         int cid = sc.nextInt(); 
         String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 

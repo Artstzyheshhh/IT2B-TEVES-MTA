@@ -55,7 +55,7 @@ public class customer {
         }while(resp.equalsIgnoreCase("yes")); 
          
          }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }  
           
    
@@ -69,7 +69,7 @@ public class customer {
         
         
         }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
         try{
@@ -87,7 +87,7 @@ public class customer {
   
   
       }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
         }
@@ -130,7 +130,7 @@ public class customer {
     conf.updateRecord(sql, name,  age, no, email, id);
         
         }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
         
     }
@@ -154,7 +154,7 @@ public class customer {
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
           }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
          

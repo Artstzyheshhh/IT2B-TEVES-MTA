@@ -14,6 +14,10 @@ config conf = new config();
         System.out.println("2. Staffs: ");
         System.out.print("Select user: ");
         int user = sc.nextInt();
+        
+        while(user> 2){ 
+        System.out.print("try again : ");        
+        user = sc.nextInt();}
         TEVESmovieapp map = new TEVESmovieapp();
         switch(user){
             case 1:
@@ -35,7 +39,7 @@ config conf = new config();
        
              
          }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
      

@@ -53,7 +53,7 @@ public class movies {
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes"));
         }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
            
           
@@ -89,20 +89,12 @@ public class movies {
 
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
-     //view transact
-      public void view() {
-        String sqlQuery = "SELECT * FROM tbl_transact";
-        String[] columnHeaders = {"ID", "Name", "price"};
-        String[] columnNames = {"t_id", "m_name", "m_price"};
-
-        conf.viewRecords(sqlQuery, columnHeaders, columnNames);
-    }
+       
         // update 
     public void Updatemovie(){
-     try{}catch(Exception e){
-              System.out.print("rnter a valid character");
-          }
-        System.out.print("Enter movie ID to edit: ");
+     try{
+     
+      System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
         
         String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
@@ -113,8 +105,7 @@ public class movies {
         System.out.print("New movie name: ");
         String name = sc.nextLine();
         System.out.print("New price: ");
-        int price = sc.nextInt();
-       
+        int price = sc.nextInt();      
         System.out.print("New category: ");
         String category = sc.next();
         System.out.print("seats available: ");
@@ -124,14 +115,17 @@ public class movies {
     String sql = "UPDATE tbl_movie SET m_name = ?, m_price = ?, m_category = ?, m_seats = ? WHERE m_id = ?";
     config conf = new config();
     conf.updateRecord(sql, name, price, category, seats, id);
+     }catch(Exception e){
+              System.out.print("enter a valid character");
+          }
+       
     }
     
     public void deletemovie(){
         
-     try{}catch(Exception e){
-              System.out.print("rnter a valid character");
-          }    
-        String delmore;
+     try{
+     
+     String delmore;
         do{
         System.out.print("Enter movie ID to delete: ");
         int id = sc.nextInt();
@@ -147,6 +141,11 @@ public class movies {
         config conf = new config();
         conf.deleteRecord(sql, id);
         }while(delmore.equalsIgnoreCase("yes"));
+     
+     }catch(Exception e){
+              System.out.print("enter a valid character");
+          }    
+        
         
 }
   
