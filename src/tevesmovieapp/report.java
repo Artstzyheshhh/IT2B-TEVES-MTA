@@ -46,7 +46,7 @@ public class report {
         }while(resp.equalsIgnoreCase("yes")); 
         
         }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
     
     
@@ -104,7 +104,7 @@ public class report {
             System.out.println("change:             "+chng);
             System.out.println("-----------------------------------------------");
         } catch (Exception e) {
-            System.out.println("Invalid input. Please enter a valid integer for transaction ID.");
+            System.out.println("Invalid input. Please enter a valid integer for transaction ID:");
         }
     }
 }

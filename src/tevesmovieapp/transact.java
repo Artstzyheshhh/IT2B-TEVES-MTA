@@ -68,7 +68,7 @@ public class transact {
         }while(resp.equalsIgnoreCase("yes"));
            
            }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
           
@@ -112,8 +112,8 @@ public class transact {
         
         System.out.print("cash: ");
         int cash = sc.nextInt();
-        while(cash < price){ 
-            System.out.println("not enough ammount, enter larger ammount: ");
+        while(cash < total){ 
+            System.out.print("not enough ammount, enter larger ammount: ");
             cash = sc.nextInt();   }        
         double change = cash - total; 
         System.out.println("change :"+change);
@@ -124,7 +124,7 @@ public class transact {
         conf.addRecord(sql, cid, mid, ticket, cash, total, change);
                
            }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
     }
@@ -181,15 +181,15 @@ public class transact {
         String mprice = "SELECT m_price FROM tbl_movie WHERE m_id =?";
         double price = conf.getSingleValue(mprice, mid);
         
-        double total = ticket * price;
+        double total = price * ticket;
         double rseat = tickets - ticket; 
         System.out.println("seats available :"+rseat);
         System.out.println("total payment: "+total);
         
         System.out.print("cash: ");
         int cash = sc.nextInt();
-        while(cash < price){ 
-            System.out.println("not enough ammount, enter larger ammount: ");
+        while(cash < total){ 
+            System.out.print("not enough ammount, enter larger ammount: ");
             cash = sc.nextInt();   }        
         double change = cash - total; 
         System.out.println("change :"+change);
@@ -200,7 +200,7 @@ public class transact {
        String sql = "UPDATE tbl_transact SET c_id = ?, m_id = ?, t_ticket = ?, t_cash = ?, t_total = ?, t_change = ?   WHERE t_id = ?";    
        conf.updateRecord(sql, cid, mid, ticket, cash, total, change, tid); 
          }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
               
           }
           
@@ -230,7 +230,7 @@ public class transact {
 
          
          }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
     }

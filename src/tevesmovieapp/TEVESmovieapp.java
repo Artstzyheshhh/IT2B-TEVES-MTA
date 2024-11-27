@@ -29,7 +29,7 @@ config conf = new config();
             case 2:
                 System.out.print("Enter password: ");
                 String pass = sc.next();
-                while(!(pass.equals("pass1234"))){
+                while(!(pass.equals("1234"))){
                     System.out.print("Incorrect password, try again: ");
                     pass = sc.next();
                 }
@@ -98,7 +98,7 @@ config conf = new config();
       }while(resp.equalsIgnoreCase("yes"));
              
          }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
     
@@ -116,9 +116,10 @@ config conf = new config();
        System.out.print("\n1. Add account");
        System.out.print("\n2. Edit account "); 
        System.out.print("\n3. Buy tickets "); 
+       System.out.print("\n4. Exit ");
        System.out.print("\nEnter selection: ");
        int select = sc.nextInt();
-        while(select> 3){ 
+        while(select> 4){ 
         System.out.print("invalid, try again : ");
         select = sc.nextInt();
         
@@ -139,13 +140,16 @@ config conf = new config();
                 trn.addtransact();
               
                 break;
-        
+            case 4:
+                  TEVESmovieapp map = new TEVESmovieapp();
+                    map.exitApp();
+                break;
         }
           System.out.println("do another transaction (yes/no): ");
           resp = sc.next();
        }while(resp.equalsIgnoreCase("yes"));
       }catch(Exception e){
-              System.out.print("rnter a valid character");
+              System.out.print("enter a valid character");
           }
        
        
