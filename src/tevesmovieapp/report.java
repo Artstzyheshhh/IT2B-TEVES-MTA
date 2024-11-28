@@ -29,9 +29,7 @@ public class report {
                      rp.viewgenreport();
                      break;
                  case 2:
-                       System.out.println("\t---------------------------");
-                       System.out.println("\t|    INDIVIUAL REPORT     |");
-                       System.out.println("\t---------------------------");
+                      
                      rp.viewgenreport();
                       rp.viewSpecific();
                      break;                
@@ -68,7 +66,9 @@ public class report {
         
         
         try { 
-          
+             System.out.println("\t---------------------------");
+                       System.out.println("\t|    INDIVIUAL REPORT     |");
+                       System.out.println("\t---------------------------");
             
             System.out.print("Enter specific transaction ID: ");
             int id = sc.nextInt();
@@ -95,6 +95,8 @@ public class report {
             double ttl = conf.getSingleValue(total, id);
             String change = "SELECT t_change FROM tbl_transact WHERE t_id =?";
             double chng = conf.getSingleValue(change, id);
+            
+            
             System.out.println("\n-----------------------------------------------");
             System.out.println("customer name:      "+cname);
             System.out.println("movie name:         "+mname);
@@ -104,7 +106,7 @@ public class report {
             System.out.println("change:             "+chng);
             System.out.println("-----------------------------------------------");
         } catch (Exception e) {
-            System.out.println("Invalid input. Please enter a valid integer for transaction ID:");
+            System.out.println("Invalid input. Please enter a valid integer for transaction ID.");
         }
     }
 }

@@ -76,14 +76,7 @@ public class customer {
       //add
 
    public void addcustomers() {   
-       
-        try{
-        
-        
-        }catch(Exception e){
-              System.out.print("enter a valid character");
-          }
-       
+             
         try{
        System.out.print("customer name: ");
         String name = sc.next();

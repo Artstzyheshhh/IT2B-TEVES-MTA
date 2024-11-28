@@ -110,9 +110,9 @@ public class movies {
       System.out.print("Enter movie ID to edit: ");
         int id = sc.nextInt();
         
-        String cusid = "SELECT c_id FROM tbl_customer WHERE c_id =?"; 
-        while(conf.getSingleValue(cusid, id) == 0){
-              System.out.print("\n Customer not found, try again: ");
+        String movid = "SELECT m_id FROM tbl_movie WHERE m_id =?"; 
+        while(conf.getSingleValue(movid, id) == 0){
+              System.out.print("\nMovie not found, try again: ");
               id = sc.nextInt(); }
          
         System.out.print("New movie name: ");
