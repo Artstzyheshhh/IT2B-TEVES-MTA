@@ -30,7 +30,8 @@ public class report {
                      break;
                  case 2:
                       
-                     rp.viewgenreport();
+                      customer cst = new customer();
+                      cst.viewcustomer();
                       rp.viewSpecific();
                      break;                
                   case 3:
@@ -67,44 +68,34 @@ public class report {
         
         try { 
              System.out.println("\t---------------------------");
-                       System.out.println("\t|    INDIVIUAL REPORT     |");
-                       System.out.println("\t---------------------------");
+             System.out.println("\t|    INDIVIUAL REPORT     |");
+             System.out.println("\t---------------------------");
             
-            System.out.print("Enter specific transaction ID: ");
-            int id = sc.nextInt();
+       
+    System.out.print("Enter customer id: ");
+        int id = sc.nextInt();
+         
+        String cusid = "SELECT c_id FROM tbl_customer WHERE c_id = ?"; 
+        int cid = conf.getSingleIntValue(cusid, id); 
+        while(conf.getSingleValue(cusid, id) == 0){
+              System.out.print("\n customer not found, try again: ");
+              id = sc.nextInt(); }    
+        String cusname = "SELECT c_name FROM tbl_customer WHERE c_id =?"; 
+        String cname = conf.getString(cusname, cid);
+            System.out.println("customer name: "+cname);
+
+    String sqlQuery = "SELECT tbl_transact.t_id AS Transact_id, tbl_movie.m_name AS Movie_name, tbl_movie.m_price AS Movie_price,"
+               + "tbl_transact.t_ticket AS tickets_paid, tbl_transact.t_total AS total, tbl_transact.t_cash AS cash, "
+               + "tbl_transact.t_change AS change FROM tbl_transact "          
+               + "LEFT JOIN tbl_movie ON tbl_movie.m_id = tbl_transact.m_id WHERE tbl_transact.c_id = ?";
+
+    String[] columnHeaders = {"Transact id", "Movie name", "Movie price", "Tickets paid", "Total", "Cash", "Change"};
+    String[] columnNames = {"Transact_id", "Movie_name", "Movie_price", "Tickets_paid", "Total", "Cash", "Change"};
+
+    conf.viewIndivRecords(sqlQuery, columnHeaders, columnNames, cid);
+             
+             
            
-             String trnid = "SELECT t_id FROM tbl_transact WHERE t_id =?"; 
-           while(conf.getSingleValue(trnid, id) == 0){
-              System.out.print("\n Customer not found, try again: ");
-              id = sc.nextInt(); }
-           
-            String cusid = "SELECT c_id FROM tbl_transact WHERE t_id =?";
-            String cid = conf.getString(cusid, id);
-            String movid = "SELECT m_id FROM tbl_transact WHERE t_id =?";
-            String mid = conf.getString(movid, id);
-            
-            String cusname = "SELECT c_name FROM tbl_customer WHERE c_id =?";
-            String cname = conf.getString(cusname,cid);
-            String movname = "SELECT m_name FROM tbl_movie WHERE m_id =?";
-            String mname = conf.getString(movname,mid);
-            String tickets = "SELECT t_ticket FROM tbl_transact WHERE t_id =?";
-            String tick = conf.getString(tickets,id);
-            String cashs = "SELECT t_cash FROM tbl_transact WHERE t_id =?";
-            double cash = conf.getSingleValue(cashs, id);
-            String total = "SELECT t_total FROM tbl_transact WHERE t_id =?";
-            double ttl = conf.getSingleValue(total, id);
-            String change = "SELECT t_change FROM tbl_transact WHERE t_id =?";
-            double chng = conf.getSingleValue(change, id);
-            
-            
-            System.out.println("\n-----------------------------------------------");
-            System.out.println("customer name:      "+cname);
-            System.out.println("movie name:         "+mname);
-            System.out.println("tickets bought:     "+tick);
-            System.out.println("total:              "+ttl);
-            System.out.println("customers cash:     "+cash);
-            System.out.println("change:             "+chng);
-            System.out.println("-----------------------------------------------");
         } catch (Exception e) {
             System.out.println("Invalid input. Please enter a valid integer for transaction ID.");
         }

@@ -84,7 +84,15 @@ public class movies {
         String category = sc.next();
         System.out.print("seats available: ");
         int seats = sc.nextInt();
-                
+        if(seats> 0){ 
+            String status = ("Available") ;
+            System.out.println("Movie status: "+status);
+        }
+        else if (seats < 0){
+           String status = ("Unavailable");        
+            System.out.println("Movie status: "+status);
+        } 
+        
         String sql = "INSERT INTO tbl_movie (m_name, m_price, m_category, m_seats) VALUES (?, ?, ?, ?)";
         conf.addRecord(sql, name, price, category, seats);
         
@@ -97,8 +105,8 @@ public class movies {
       
      public void viewmovie() {
         String sqlQuery = "SELECT * FROM tbl_movie";
-        String[] columnHeaders = {"ID", "Name", "price", "category", "Seats"};
-        String[] columnNames = {"m_id", "m_name", "m_price", "m_category", "m_seats"};
+        String[] columnHeaders = {"ID", "Name", "price", "category", "Seats", "status"};
+        String[] columnNames = {"m_id", "m_name", "m_price", "m_category", "m_seats", "m_status"};
 
         conf.viewRecords(sqlQuery, columnHeaders, columnNames);
     }
@@ -116,17 +124,29 @@ public class movies {
               id = sc.nextInt(); }
          
         System.out.print("New movie name: ");
-        String name = sc.nextLine();
+        String name = sc.next();
         System.out.print("New price: ");
         int price = sc.nextInt();      
         System.out.print("New category: ");
         String category = sc.next();
         System.out.print("seats available: ");
         int seats = sc.nextInt();
-        
-   
+       
+        if(seats> 0){ 
+            String status = ("Available") ;
+            String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+            conf.updateRecord(sql, status, id);
+            System.out.println("movie status: "+status);
+        }
+        else if (seats < 0){
+           String status = ("Unavailable");
+           String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+           conf.updateRecord(sql, status, id);
+           System.out.println("movie status: "+status);
+        } 
+         
     String sql = "UPDATE tbl_movie SET m_name = ?, m_price = ?, m_category = ?, m_seats = ? WHERE m_id = ?";
-    config conf = new config();
+    
     conf.updateRecord(sql, name, price, category, seats, id);
      }catch(Exception e){
               System.out.print("enter a valid character");
@@ -147,7 +167,7 @@ public class movies {
         while(conf.getSingleValue(movid, id) == 0){
               System.out.print("\n movie not found, try again: ");
               id = sc.nextInt(); }        
-        System.out.print("delete more:");
+        System.out.print("delete more(yes/no):");
         delmore = sc.next();                
         
         String sql = "DELETE FROM tbl_movie WHERE m_id = ?";

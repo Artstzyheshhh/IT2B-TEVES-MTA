@@ -63,7 +63,7 @@ public class transact {
                      break;
                                               
              } 
-        System.out.print("do another transaction(yes/no): ");
+        System.out.print("\ndo another transaction(yes/no): ");
         resp = sc.next();
         }while(resp.equalsIgnoreCase("yes"));
            
@@ -107,8 +107,22 @@ public class transact {
         
         double total = ticket * price;
         double rseat = tickets - ticket; 
+        if(rseat> 0){ 
+            String status = ("Available") ;
+            String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+            conf.updateRecord(sql, status, mid);
+            System.out.println("\nmovie status: "+status);
+        }
+        else if (rseat == 0){
+           String status = ("Unavailable");
+           String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+           conf.updateRecord(sql, status, mid);
+           System.out.println("\nmovie status: "+status);
+        } 
         System.out.println("seats available :"+rseat);
         System.out.println("total payment: "+total);
+        
+        
         
         System.out.print("cash: ");
         int cash = sc.nextInt();
@@ -183,6 +197,18 @@ public class transact {
         
         double total = price * ticket;
         double rseat = tickets - ticket; 
+        if(rseat> 0){ 
+            String status = ("Available") ;
+            String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+            conf.updateRecord(sql, status, mid);
+            System.out.println("movie status: "+status);
+        }
+        else if (rseat < 0){
+           String status = ("Unavailable");
+           String sql = "UPDATE tbl_movie SET m_status = ? WHERE m_id = ?";  
+           conf.updateRecord(sql, status, mid);
+           System.out.println("movie status: "+status);
+        } 
         System.out.println("seats available :"+rseat);
         System.out.println("total payment: "+total);
         
